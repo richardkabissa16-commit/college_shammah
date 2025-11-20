@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Redirect to public directory
+RewriteCond %{REQUEST_URI} !^/college_shammah/public/
+RewriteRule ^(.*)$ /college_shammah/public/$1 [L,QSA]
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# Prevent access to sensitive files
+<FilesMatch "\.(env|log|sql|md|gitignore)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
